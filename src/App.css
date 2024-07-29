@@ -1,0 +1,143 @@
+:root {
+  --dark-color: #10bd3e;
+  --light-color: #e0e7e2;
+  --border-color: rgb(31, 22, 22);
+  --icon-color: #000;
+  --highlight-color: #fae20d;
+  --move-tille-color: #d8ca48;
+  --success-color: rgb(105, 222, 79);
+  --error-colr: rgb(214, 77, 77);
+  --info-color: rgb(94, 100, 224);
+}
+
+.game-container {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.info-container {
+  flex: 1;
+}
+
+.chess-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 3rem;
+}
+
+.chess-piece {
+  width: 2rem;
+  height: 2rem;
+  padding: 1rem;
+  border: var(--border-color) solid 2px;
+  border-collapse: collapse;
+  color: var(--icon-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: no-drop;
+}
+
+.chess-piece.piece {
+  cursor: pointer;
+}
+
+.chess-piece.movable {
+  /* border: var(--move-tille-color) solid 2px; */
+  box-shadow: 0 0 11px 1px var(--move-tille-color) inset;
+  cursor: pointer;
+}
+
+.chess-piece.movable::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  background-color: white;
+  outline: #000 solid 2px;
+  border-radius: .2rem;
+}
+
+.chess-piece.piece:hover {
+  border: var(--highlight-color) solid 2px;
+  box-shadow: 0 0 12px 2px var(--highlight-color) inset;
+}
+
+.chess-piece span {
+  font-size: 3rem;
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+}
+
+.dark {
+  background-color: var(--dark-color);
+}
+
+.light {
+  background-color: var(--light-color);
+}
+
+.alert-container {
+  display: flex;
+  position: absolute;
+  flex-direction: row;
+  align-items: center;
+  height: 5rem;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem 3rem;
+  top: -7rem;
+  width: 100%;
+  transition: top 0.15s ease-out;
+}
+
+.alert-container.active {
+  top: 0;
+  transition: top 0.25s ease-in;
+}
+
+.alert-img-container {
+  height: 100%;
+}
+
+.alert-text-container {
+  flex: .8;
+}
+
+.alert-text-container h2 {
+  margin: 0;
+}
+
+.alert-text-container p {
+  margin: 0;
+}
+
+.alert-img {
+  height: 100%;
+}
+
+.alert-close-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.alert-close {
+  height: 1.5rem;
+}
+
+.success {
+  background-color: var(--success-color);
+}
+
+.error {
+  background-color: var(--error-color);
+}
+
+.info {
+  background-color: var(--info-color);
+}
