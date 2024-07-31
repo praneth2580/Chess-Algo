@@ -26,7 +26,7 @@ function App() {
   }
 
   useEffect(() => {
-    showModal("THis is a title","this is a desc",0)
+    // showModal("THis is a title","this is a desc",0)
   },[])
 
   return (

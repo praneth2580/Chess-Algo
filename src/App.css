@@ -4,6 +4,7 @@
   --border-color: rgb(31, 22, 22);
   --icon-color: #000;
   --highlight-color: #fae20d;
+  --capture-color: #f42d2d;
   --move-tille-color: #d8ca48;
   --success-color: rgb(105, 222, 79);
   --error-colr: rgb(214, 77, 77);
@@ -46,7 +47,7 @@
 }
 
 .chess-piece.movable {
-  /* border: var(--move-tille-color) solid 2px; */
+  border: var(--move-tille-color) solid 2px;
   box-shadow: 0 0 11px 1px var(--move-tille-color) inset;
   cursor: pointer;
 }
@@ -58,6 +59,16 @@
   background-color: white;
   outline: #000 solid 2px;
   border-radius: .2rem;
+}
+
+.chess-piece.piece.capture {
+  border: var(--capture-color) solid 2px;
+  box-shadow: 0 0 12px 2px var(--capture-color) inset;
+}
+
+.chess-piece.piece.active {
+  border: var(--highlight-color) solid 2px;
+  box-shadow: 0 0 12px 2px var(--highlight-color) inset;
 }
 
 .chess-piece.piece:hover {

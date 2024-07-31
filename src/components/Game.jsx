@@ -32,7 +32,7 @@ function GameBoard() {
 
                 if (piece) {
                     const temp_piece = PIECES[piece];
-                    piece_class = new Piece(temp_piece, temp_tiles.length, board_dimentions.rows, board_dimentions.columns, setMoves);
+                    piece_class = new Piece(temp_piece, temp_tiles.length, board_dimentions.rows, board_dimentions.columns);
                 }
                 const tile = new Tile(piece_class);
                 temp_tiles.push(tile)
@@ -58,8 +58,16 @@ function GameBoard() {
         forceUpdate();
     }
 
-    const movePiece = (piece, index) => {
-
+    const movePiece = (index) => {
+        const temp_tiles = tiles;
+        const clicked_piece = temp_tiles[clicked_piece_index].piece;
+        clicked_piece.changeIndex(index);
+        temp_tiles[clicked_piece_index].piece = null;
+        temp_tiles[index].piece = clicked_piece;
+        setTiles(temp_tiles)
+        setClickedPieceIndex(-1)
+        setMoves([])
+        forceUpdate();
     }
 
     const onClick = (piece, index) => {
@@ -67,11 +75,13 @@ function GameBoard() {
             const moves = piece.calcuateMoves();
             setMoves(moves);
             setClickedPieceIndex(index);
-        } else {
-            if (clicked_piece_index != -1) {
-                
-            }
-        }
+            return
+        } 
+
+        if (clicked_piece_index == -1) return;
+
+        movePiece(index)
+        
     }
 
     useEffect(() => {
@@ -91,7 +101,7 @@ function GameBoard() {
         border: "var(--border-color) solid 10px"
     }}>
         {
-            tiles.map((tile, i) => <GameSquare key={i} index={i} tile={tile} onClick={onClick}/>)
+            tiles.map((tile, i) => <GameSquare key={i} index={i} tile={tile} onClick={onClick} clicked_piece_index={clicked_piece_index}/>)
         }
     </div>
   );
@@ -103,16 +113,38 @@ function GameSquare(props) {
     const tile = props.tile;
     const piece = tile.piece;
     const tile_state = tile.state;
+    const isClicked = props.clicked_piece_index == props.index;
     const [className, setClassName] = useState("chess-piece");
 
     useEffect(() => {
-        setClassName(`chess-piece ${piece ? 'piece' : ( tile_state == 1 ? 'movable' : "" )} ${isDark ? 'dark' : 'light'}`)
+        var tile_class = 'chess-piece';
+        if (piece) {
+            tile_class += ' piece';
+            if (isClicked) tile_class += ' active';
+        }
+
+        if (tile_state == 1 && !piece) {
+            tile_class += ' movable';
+        }
+
+        if (tile_state == 1 && piece) {
+            tile_class += ' capture';
+        }
+
+        if (isDark) {
+            tile_class += ' dark';
+        } else {
+            tile_class += ' light'; 
+        }
+
+        // setClassName(`chess-piece ${piece ? (isClicked ? 'piece active' : 'piece') : ( tile_state == 1 ? 'movable' : "" )} ${isDark ? 'dark' : 'light'}`)
+        setClassName(tile_class)
     },[])
 
     
 
     const onClick = () => {
-        if (!piece) return null;
+        if (!piece && tile_state != 1) return null;
 
         props.onClick(piece,props.index);
     }
